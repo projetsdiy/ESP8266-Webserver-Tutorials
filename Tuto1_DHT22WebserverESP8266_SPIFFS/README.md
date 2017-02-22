@@ -61,3 +61,10 @@ Tutoriel complet sur http://www.projetsdiy.fr/esp8266-web-server-partie1-stockag
 * Découverte du langage Pug : http://www.projetsdiy.fr/pug-jade-preparer-interfaces-html-raspberry-pi-geany/
 * Installer l'IDE Arduino sur plateforme ARM (Orange Pi, Raspberry Pi...) : http://www.projetsdiy.fr/installer-ide-arduino-linux-arm-raspberry-pi-orange-pi-odroid-armbian/
 * Comment programmer en code Arduino l'ESP8266 : http://www.projetsdiy.fr/adafruit-huzzah-esp8266-test-tuto-update-firmware/
+
+
+<img align="center" src="https://github.com/projetsdiy/ESP8266-Webserver-Tutorials/blob/master/Tuto1_DHT22WebserverESP8266_SPIFFS/esp8266-spiffs-wemos-d1-mini-web-server-bootstrap-dht22-bmp180.png" style="max-width:100%;">
+
+Licence : MIT
+
+Copyright : www.projetsdiy.fr and www.diyprojects.io
