@@ -1,4 +1,4 @@
-# ESP8266 Web Server + SPIFFS + Bootstrap
+# ESP8266 Web Server + SPIFFS + Bootstrap - Part 1
 How to create Web Server with ESP8266 
 * Measure temperature and humidity (DHT22), atmospheric pressure (BMP180)
 * Store HTML, CSS and IMG file on SPIFFS system file
@@ -30,7 +30,7 @@ Full tutorial on http://www.diyprojects.io/esp8266-web-server-part-1-store-web-i
 * How to install Arduino IDE for ARM plateform : http://www.diyprojects.io/install-arduino-ide-linux-arm-raspberry-pi-orange-pi-odroid/
 * How to configure Arduino IDE and use ESP8266 : http://www.diyprojects.io/adafruit-huzzah-esp8266-test-firmware-upgrade-nodemcu/
 
-# ESP8266 Web Server + SPIFFS + Bootstrap
+# ESP8266 Web Server + SPIFFS + Bootstrap - Partie 1
 Comment créer un serveur web avec un ESP8266
 * Mesurer la température et l'humidité (DHT22), ainsi que la pression atmosphérique (BMP180)
 * Enregistrer les fichiers HTML, CSS et IMG sur le système de fichier SPIFFS
