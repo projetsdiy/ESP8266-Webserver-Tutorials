@@ -1,10 +1,10 @@
 /*
  * ESP8266 + DHT22 + BMP180 + BOOTSTRAP + SPIFFS
  * 
- * Step 1 - Start Project ESP8266 Web Server + SPIFFS + Bootstrap
+ * Part 1 - Start Project ESP8266 Web Server + SPIFFS + Bootstrap
  * Full tutorial on http://www.diyprojects.io/esp8266-web-server-part-1-store-web-interface-spiffs-area-html-css-js/
  * 
- * Etape 1 - Démarrage du projet ESP8266 Web Serveur + Bootstrap
+ * Partie 1 - Démarrage du projet ESP8266 Web Serveur + Bootstrap
  * Tutoriel complet sur http://www.projetsdiy.fr/esp8266-web-server-partie1-stockage-spiffs-interface-web/
  *  
  *  
@@ -24,6 +24,7 @@
  * Licence : MIT
  * Copyright (C) 2017 : www.projetsdiy.fr and www.diyprojects.io
  */
+#include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <DHT.h>
 #include <Adafruit_BMP085.h>
