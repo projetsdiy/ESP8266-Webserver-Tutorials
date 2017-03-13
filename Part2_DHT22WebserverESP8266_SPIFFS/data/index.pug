@@ -1,0 +1,299 @@
+html(charset='UTF-8')
+    head
+      meta( name='viewport')
+      //script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+      script(src='js/jquery.min.js')
+      //script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+      script(src='js/bootstrap.min.js')
+      //script(src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js")
+      script(src='js/bootstrap-table.min.js')
+      //link(rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css")
+      link(rel="stylesheet" href="css/bootstrap-table.min.css")
+      link(href='https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css', rel='stylesheet' title="main")
+      title Demo ESP8266 SPIFFS + Boostrap - www.projetsdiy.fr
+    body
+      .container-fluid
+        h1 Demo Webserver ESP8266 + Bootstrap
+        ul#tab.nav.nav-tabs
+          li.active
+            a(href="#tab_mesures" data-toggle="tab") Mesures
+          li
+            a(href="#tab_graphs" data-toggle="tab") Graphiques
+          li
+            a(href="#tab_gpio" data-toggle="tab") GPIO  
+          li
+            a(href="#tab_configuration" data-toggle="tab") Configuration
+        div.tab-content
+        
+          div#tab_mesures.tab-pane.fade.in.active          
+            
+            h2 Mini station m&eacute;t&eacute;o (DHT22 + BMP180)
+            ul.nav.nav-pills
+              li.active
+                a(href='#')
+                  #temperature.span.badge.pull-right -
+                  |  Temp&eacute;rature
+              li
+                a(href='#')
+                  #humidite.span.badge.pull-right -
+                  |  Humidit&eacute;
+              li
+                a(href='#')
+                  #pa.span.badge.pull-right -
+                  |  Pression atmosph&eacute;rique
+            br
+            table(id='table_mesures' data-toggle='table' data-show-colunns='true')
+              thead
+                tr
+                  th(data-field='mesure' data-align='left' data-sortable='true' data-formatter='labelFormatter') Mesure
+                  th(data-field='valeur' data-align='left' data-sortable='true' data-formatter='valueFormatter') Valeur
+                  th(data-field='precedente' data-align='left' data-sortable='true' data-formatter='vpFormatter') Valeur Pr&eacute;c&eacute;dente
+
+          div#tab_graphs.tab-pane.fade
+            h2 Graphs
+            
+          div#tab_gpio.tab-pane.fade
+            h2 GPIO
+            .row
+                .col-xs-6.col-md-4
+                  h4.text-left
+                    | D5
+                    #D5_etat.span.badge OFF
+                .col-xs-6.col-md-4
+                  #D5_On.button.btn.btn-success.btn-lg(type='button') ON
+                .col-xs-6.col-md-4
+                  #D5_Off.button.btn.btn-danger.btn-lg(type='button') OFF
+                .col-xs-6.col-md-4
+                  h4.text-left
+                    | D6
+                    #D6_etat.span.badge OFF
+                .col-xs-6.col-md-4
+                  #D6_On.button.btn.btn-success.btn-lg(type='button') ON
+                .col-xs-6.col-md-4
+                  #D6_Off.button.btn.btn-danger.btn-lg(type='button') OFF
+                .col-xs-6.col-md-4
+                  h4.text-left
+                    | D7
+                    #D7_etat.span.badge OFF
+                .col-xs-6.col-md-4
+                  #D7_On.button.btn.btn-success.btn-lg(type='button') ON
+                .col-xs-6.col-md-4
+                  #D7_Off.button.btn.btn-danger.btn-lg(type='button') OFF
+                .col-xs-6.col-md-4
+                  h4.text-left
+                    | D8
+                    #D8_etat.span.badge OFF
+                .col-xs-6.col-md-4
+                  #D8_On.button.btn.btn-success.btn-lg(type='button') ON
+                .col-xs-6.col-md-4
+                  #D8_Off.button.btn.btn-danger.btn-lg(type='button') OFF
+          div#tab_configuration.tab-pane.fade
+            h2 Configuration        
+
+            .btn-group
+              button#labelTheme.btn.btn-default Theme
+              button.btn.btn-default.dropdown-toggle(data-toggle='dropdown')
+                span.caret
+              ul.dropdown-menu
+                li
+                    a.change-style-menu-item(href='#' rel='bootstrap') Boostrap
+                li
+                    a.change-style-menu-item(href='#' rel='cerulean') Cerulean
+                li
+                    a.change-style-menu-item(href='#' rel='cosmo') Cosmo
+                li
+                    a.change-style-menu-item(href='#' rel='cyborg') Cyborg
+                li
+                    a.change-style-menu-item(href='#' rel='darkly') Darkly
+                li
+                    a.change-style-menu-item(href='#' rel='flatly') Flatly
+                li
+                    a.change-style-menu-item(href='#' rel='journal') Journal
+                li
+                    a.change-style-menu-item(href='#' rel='lumen') Lumen
+                li
+                    a.change-style-menu-item(href='#' rel='paper') Paper
+                li
+                    a.change-style-menu-item(href='#' rel='readable') Readable
+                li
+                    a.change-style-menu-item(href='#' rel='sandstone') Sandstone
+                li
+                    a.change-style-menu-item(href='#' rel='simplex') Simplex
+                li
+                    a.change-style-menu-item(href='#' rel='slate') Slate
+                li
+                    a.change-style-menu-item(href='#' rel='spacelab') Spacelab
+                li
+                    a.change-style-menu-item(href='#' rel='superhero') Superhero
+                li
+                    a.change-style-menu-item(href='#' rel='united') United
+                li
+                    a.change-style-menu-item(href='#' rel='yeti') Yeti  
+        .row(style="position:absolute; bottom:0; width:100%")
+          .col-xs-2.col-md-2
+            img(src="img/logo.png" width="30" height="30")
+          .col-xs-5.col-md-5
+            p
+              a(href='http://www.projetsdiy.fr') Version francaise : www.projetsdiy.fr
+          .col-xs-5.col-md-5
+            p
+              a(href='http://www.diyprojects.io') English version : www.diyprojects.io
+    
+      //script(src='js/script.js')
+    
+      script().
+        var Timer_UdpateMesures;
+        
+        $('a[data-toggle=\"tab\"]').on('shown.bs.tab', function (e) {   
+          //On supprime tous les timers lorsqu'on change d'onglet
+          clearTimeout(Timer_UdpateMesures);  
+          var target = $(e.target).attr("href")  
+          console.log('activated ' + target );  
+
+          // IE10, Firefox, Chrome, etc.
+          if (history.pushState) 
+            window.history.pushState(null, null, target);
+          else 
+            window.location.hash = target;
+          
+          if (target=='#tab_mesures')  {
+            $('#table_mesures').bootstrapTable('refresh',{silent:true, url:'/tabmesures.json'}); 
+          }  
+        });
+        
+        // Créé un timer qui actualise les données régulièrement - Create a timer than update data every n secondes
+        $('#tab_mesures').on('load-success.bs.table',function (e,data){
+          console.log("tab_mesures loaded");
+          if ($('.nav-tabs .active > a').attr('href')=='#tab_mesures') {
+            Timer_UdpateMesures=setTimeout(function(){
+              $('#table_mesures').bootstrapTable('refresh',{silent: true, showLoading: false, url: '/tabmesures.json'});
+              updateMesures();
+            },5000);
+          }                 
+        });   
+            
+        function updateMesures(){
+          $.getJSON('/mesures.json', function(data){
+            //console.log("Mesures envoyees : " + JSON.stringify(data) + "|" + data.t + "|" + data.h + "|" + data.pa) ;
+            $('#temperature').html(data.t);
+            $('#humidite').html(data.h);
+            $('#pa').html(data.pa); 
+          }).fail(function(err){
+            console.log("err getJSON mesures.json "+JSON.stringify(err));
+          });
+        };
+
+        function labelFormatter(value, row){
+          //console.log("labelFormatter");
+          //console.log(value);
+          console.log(row);
+          var label = "";
+          if ( value === "Température" ) {
+            label = value + "<span class='glyphicon " + row.glyph + " pull-left'></span>";
+          } else if ( value === "Humidité" ) {
+            label = value + "<span class='glyphicon " + row.glyph + " pull-left'></span>";
+          } else if ( value === "Pression Atmosphérique" ) {
+            label = value + "<span class='glyphicon " + row.glyph + " pull-left'></span>";
+          } else {
+            label = value;
+          } 
+          return label;
+        }
+        function valueFormatter(value, row){
+          //console.log("valueFormatter");
+          var label = "";
+          if ( row.valeur > row.precedente ) {
+            label = value + row.unite + "<span class='glyphicon glyphicon-chevron-up pull-right'></span>";
+          } else { 
+            label = value + row.unite + "<span class='glyphicon glyphicon-chevron-down pull-right'></span>";
+          }
+          return label;
+        }
+        function vpFormatter(value, row){
+          //console.log("valueFormatter");
+          var label = "";
+          if ( row.valeur > row.precedente ) {
+            label = value + row.unite
+          } else { 
+            label = value + row.unite
+          }
+          return label;
+        }  
+        
+        // Commandes sur le GPIO - GPIO change
+        $('#D5_On').click(function(){ setBouton('D5','1'); });
+        $('#D5_Off').click(function(){ setBouton('D5','0'); });
+        $('#D6_On').click(function(){ setBouton('D6','1'); });
+        $('#D6_Off').click(function(){ setBouton('D6','0'); });
+        $('#D7_On').click(function(){ setBouton('D7','1'); });
+        $('#D7_Off').click(function(){ setBouton('D7','0'); });
+        $('#D8_On').click(function(){ setBouton('D8','1'); });
+        $('#D8_Off').click(function(){ setBouton('D8','0'); });
+  
+        function setBouton(id, etat){
+          $.post("gpio?id=" + id + "&etat=" + etat).done(function(data){
+            //console.log("Retour setBouton " + JSON.stringify(data)); 
+            var id_gpio = "#" + id + "_etat";
+            //console.log(id_gpio);
+            if ( data.success === "1" ) {
+              if ( data.etat === "1" ) {
+                $(id_gpio).html("ON");
+              } else {
+                $(id_gpio).html("OFF");
+              }  
+            } else {
+              $(id_gpio).html('!');
+            }      
+          }).fail(function(err){
+            console.log("err setButton " + JSON.stringify(err));
+          });
+        } 
+        
+        // Changement du thème - Change current theme
+        // Adapté de - Adapted from : https://wdtz.org/bootswatch-theme-selector.html
+        var supports_storage = supports_html5_storage();
+        if (supports_storage) {
+          var theme = localStorage.theme;
+          console.log("Recharge le theme " + theme);
+          if (theme) {
+            set_theme(get_themeUrl(theme));
+          }
+        }
+        
+        // Un nouveau thème est sélectionné - New theme selected
+        jQuery(function($){
+          $('body').on('click', '.change-style-menu-item', function() {
+            var theme_name = $(this).attr('rel');
+            console.log("Changement de theme " + theme_name);
+            var theme_url = get_themeUrl(theme_name);
+            console.log("URL theme : " + theme_url);
+            set_theme(theme_url);
+          });
+        });
+        // Recupere l'adresse du theme - Get theme URL
+        function get_themeUrl(theme_name){
+          $('#labelTheme').html("Th&egrave;me : " + theme_name);
+          var url_theme = "";
+          if ( theme_name === "bootstrap" ) {
+            url_theme = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+          } else {
+            url_theme = "https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/" + theme_name + "/bootstrap.min.css";
+          }
+          if (supports_storage) {
+            // Enregistre le theme sélectionné en local - save into the local database the selected theme
+            localStorage.theme = theme_name;
+          }
+          return url_theme;
+        }
+        // Applique le thème - Apply theme
+        function set_theme(theme_url) {
+          $('link[title="main"]').attr('href', theme_url);
+        }
+        // Stockage local disponible ? - local storage available ?
+        function supports_html5_storage(){
+          try {
+            return 'localStorage' in window && window['localStorage'] !== null;
+          } catch (e) {
+            return false;
+          }
+        }
