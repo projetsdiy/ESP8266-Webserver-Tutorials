@@ -2,7 +2,7 @@
 How to create Web Server with ESP8266 
 * Measure temperature and humidity (DHT22), atmospheric pressure (BMP180)
 * Store HTML, CSS and IMG file on SPIFFS system file
-* Use Pug (old jade) to create HTML interface
+* Use Pug (old Jade) to create HTML interface
 * Use Bootstrap to create modern interface
 * Use the plugin Bootstrap-table to create table
 
@@ -25,10 +25,14 @@ Full tutorial on http://www.diyprojects.io/esp8266-web-server-part-1-store-web-i
 |       |SCL |D1         |
 
 ## More ressources
-* How to install Geany editor on Raspberry Pi, Orange Pi... (ARM SoC) : http://www.diyprojects.io/geany-text-editor-develop-raspberry-pi-orange-pi-arm/
-* How to prepare HTML interface with Geany and Pug : http://www.diyprojects.io/pug-jade-prepare-html-interfaces-raspberry-pi-geany/
-* How to install Arduino IDE for ARM plateform : http://www.diyprojects.io/install-arduino-ide-linux-arm-raspberry-pi-orange-pi-odroid/
-* How to configure Arduino IDE and use ESP8266 : http://www.diyprojects.io/adafruit-huzzah-esp8266-test-firmware-upgrade-nodemcu/
+* How to install Geany editor on Raspberry Pi, Orange Pi... (ARM SoC) :  
+http://www.diyprojects.io/geany-text-editor-develop-raspberry-pi-orange-pi-arm/
+* How to prepare HTML interface with Geany and Pug :  
+http://www.diyprojects.io/pug-jade-prepare-html-interfaces-raspberry-pi-geany/
+* How to install Arduino IDE for ARM plateform :  
+http://www.diyprojects.io/install-arduino-ide-linux-arm-raspberry-pi-orange-pi-odroid/
+* How to configure Arduino IDE and use ESP8266 :  
+http://www.diyprojects.io/adafruit-huzzah-esp8266-test-firmware-upgrade-nodemcu/
 
 # ESP8266 Web Server + SPIFFS + Bootstrap - Partie 1
 Comment créer un serveur web avec un ESP8266
@@ -57,10 +61,14 @@ Tutoriel complet sur http://www.projetsdiy.fr/esp8266-web-server-partie1-stockag
 |       |SCL    |D1            |
 
 ## Autres ressources
-* Comment installer et configurer Geany pour coder en Pug : http://www.projetsdiy.fr/geany-editeur-texte-arm-raspberry-pi-orange/
-* Découverte du langage Pug : http://www.projetsdiy.fr/pug-jade-preparer-interfaces-html-raspberry-pi-geany/
-* Installer l'IDE Arduino sur plateforme ARM (Orange Pi, Raspberry Pi...) : http://www.projetsdiy.fr/installer-ide-arduino-linux-arm-raspberry-pi-orange-pi-odroid-armbian/
-* Comment programmer en code Arduino l'ESP8266 : http://www.projetsdiy.fr/adafruit-huzzah-esp8266-test-tuto-update-firmware/
+* Comment installer et configurer Geany pour coder en Pug :  
+http://www.projetsdiy.fr/geany-editeur-texte-arm-raspberry-pi-orange/
+* Découverte du langage Pug (ancien Jade):  
+http://www.projetsdiy.fr/pug-jade-preparer-interfaces-html-raspberry-pi-geany/
+* Installer l'IDE Arduino sur plateforme ARM (Orange Pi, Raspberry Pi...) :  
+http://www.projetsdiy.fr/installer-ide-arduino-linux-arm-raspberry-pi-orange-pi-odroid-armbian/
+* Comment programmer en code Arduino l'ESP8266 :  
+http://www.projetsdiy.fr/adafruit-huzzah-esp8266-test-tuto-update-firmware/
 
 
 <img align="center" src="https://github.com/projetsdiy/ESP8266-Webserver-Tutorials/blob/master/Tuto1_DHT22WebserverESP8266_SPIFFS/esp8266-spiffs-wemos-d1-mini-web-server-bootstrap-dht22-bmp180.png" style="max-width:100%;">
