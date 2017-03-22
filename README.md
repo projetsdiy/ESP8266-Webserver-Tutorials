@@ -9,7 +9,7 @@ http://www.diyprojects.io/esp8266-web-server-part-3-recover-time-time-server-ntp
 * Part 4 : ArduinoJson, load, save files (SPIFFS)  
 http://www.diyprojects.io/esp8266-web-server-part-4-arduinojson-load-save-files-spiffs/
 * Part 5 : add Google Charts gauges and charts  
-coming soom
+http://www.diyprojects.io/esp8266-web-server-part-5-add-google-charts-gauges-and-charts/
 * Part 6 : OTA update  coming soon
 * FTP server : SPIFFS file exchange, rapid development Web Server  
 http://www.diyprojects.io/esp8266-ftp-server-spiffs-file-exchange-rapid-development-web-server/
@@ -25,7 +25,7 @@ http://www.projetsdiy.fr/esp8266-web-serveur-partie3-heure-internet-ntp-ntpclien
 * Partie 4 : ArduinoJson, charger, enregistrer des fichiers (SPIFFS)  
 http://www.projetsdiy.fr/esp8266-webserveur-partie4-arduinojson-charger-enregistrer-fichiers-spiffs/
 * Partie 5 : gauges et graphiques Google Charts  
-arrive bientôt
+http://www.projetsdiy.fr/esp8266-web-serveur-partie5-gauges-graphiques-google-charts/
 * Partie 6 : mise à jour sans fil (OTA)  
 arrive bientôt
 * Serveur FTP : échange de fichiers avec le système de fichier SPIFFS, développement rapide Web Serveur  
