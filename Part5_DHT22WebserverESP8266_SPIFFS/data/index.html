@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html charset="UTF-8">
+  <head>
+    <meta name="viewport">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css" rel="stylesheet" title="main">
+    <title>Demo ESP8266 SPIFFS + Boostrap - www.projetsdiy.fr</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <h1>ESP8266 Web Server + SPIFFS + Bootstrap + Google Charts </h1>
+      <ul class="nav nav-tabs" id="tab">
+        <li class="active"><a href="#tab_mesures" data-toggle="tab">Mesures</a></li>
+        <li><a href="#tab_graphs" data-toggle="tab">Graphiques</a></li>
+        <li><a href="#tab_gpio" data-toggle="tab">GPIO  </a></li>
+        <li><a href="#tab_configuration" data-toggle="tab">Configuration</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="tab_mesures">        
+          <h2>Mini station m&eacute;t&eacute;o (DHT22 + BMP180)</h2>
+          <ul class="nav nav-pills">
+            <li class="active"><a href="#">
+                <div class="span badge pull-right" id="temperature">-</div> Temp&eacute;rature</a></li>
+            <li><a href="#">
+                <div class="span badge pull-right" id="humidite">-</div> Humidit&eacute;</a></li>
+            <li><a href="#">
+                <div class="span badge pull-right" id="pa">-</div> Pression atmosph&eacute;rique</a></li>
+          </ul><br>
+          <table id="table_mesures" data-toggle="table" data-show-colunns="true">
+            <thead>
+              <tr>
+                <th data-field="mesure" data-align="left" data-sortable="true" data-formatter="labelFormatter">Mesure</th>
+                <th data-field="valeur" data-align="left" data-sortable="true" data-formatter="valueFormatter">Valeur</th>
+                <th data-field="precedente" data-align="left" data-sortable="true" data-formatter="vpFormatter">Valeur Pr&eacute;c&eacute;dente</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="tab_graphs">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="row panel-title"> 
+                <div class="col-xs-4 col-md-4">
+                  <div id="labelTemp"></div>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                  <div id="labelHumi"></div>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                  <div id="labelPa"></div>
+                </div>
+              </div>
+            </div>
+            <div class="panel body">
+              <div class="row">
+                <div class="col-xs-6 col-md-6">
+                  <div class="div" id="chartTemp" style="width: 100%; height: 300px"></div>
+                </div>
+                <div class="col-xs-6 col-md-6">
+                  <div class="div" id="chartPA" style="width: 100%; height: 300px"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-6">
+                  <h2 class="label label-info" id="zeroDataTemp">Pas encore de données</h2>
+                  <div class="div" id="barTemp" style="width: 100%; height: 300px"></div>
+                </div>
+                <div class="col-xs-6 col-md-6">
+                  <div class="div" id="gaugePA" style="width: 100%; height: 300px; margin-left: 25%">    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="tab_gpio">
+          <h2>GPIO</h2>
+          <div class="row">
+            <div class="col-xs-4 col-md-4">
+              <h4 class="text-left">D5
+                <div class="span badge" id="D5_etat">OFF</div>
+              </h4>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <div class="button btn btn-success btn-lg" id="D5_On" type="button">ON</div>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <div class="button btn btn-danger btn-lg" id="D5_Off" type="button">OFF</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4 col-md-4">
+              <h4 class="text-left">D6
+                <div class="span badge" id="D6_etat">OFF</div>
+              </h4>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <div class="button btn btn-success btn-lg" id="D6_On" type="button">ON</div>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <div class="button btn btn-danger btn-lg" id="D6_Off" type="button">OFF</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4 col-md-4">
+              <h4 class="text-left">D7
+                <div class="span badge" id="D7_etat">OFF</div>
+              </h4>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <div class="button btn btn-success btn-lg" id="D7_On" type="button">ON</div>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <div class="button btn btn-danger btn-lg" id="D7_Off" type="button">OFF</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4 col-md-4">
+              <h4 class="text-left">D8
+                <div class="span badge" id="D8_etat">OFF</div>
+              </h4>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <div class="button btn btn-success btn-lg" id="D8_On" type="button">ON</div>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <div class="button btn btn-danger btn-lg" id="D8_Off" type="button">OFF</div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="tab_configuration">
+          <h2>Configuration        </h2>
+          <div class="btn-group">
+            <button class="btn btn-default" id="labelTheme">Theme</button>
+            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a class="change-style-menu-item" href="#" rel="bootstrap">Boostrap</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="cerulean">Cerulean</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="cosmo">Cosmo</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="cyborg">Cyborg</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="darkly">Darkly</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="flatly">Flatly</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="journal">Journal</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="lumen">Lumen</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="paper">Paper</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="readable">Readable</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="sandstone">Sandstone</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="simplex">Simplex</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="slate">Slate</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="spacelab">Spacelab</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="superhero">Superhero</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="united">United</a></li>
+              <li><a class="change-style-menu-item" href="#" rel="yeti">Yeti  </a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="position:absolute; bottom:0; width:100%">
+        <div class="col-xs-2 col-md-2"><img src="img/logo.png" width="30" height="30"></div>
+        <div class="col-xs-5 col-md-5">
+          <p><a href="http://www.projetsdiy.fr">Version francaise : www.projetsdiy.fr</a></p>
+        </div>
+        <div class="col-xs-5 col-md-5">
+          <p><a href="http://www.diyprojects.io">English version : www.diyprojects.io</a></p>
+        </div>
+      </div>
+    </div>
+    <!--script(src='js/script.js')-->
+    <script>
+      var Timer_UdpateMesures;
+      var tab_pane;
+      google.charts.load('current', {packages: ['corechart', 'line', 'bar', 'gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+      
+      function drawChart(){
+        // https://developers.google.com/chart/interactive/docs/reference?csw=1#datatable-class
+        var options1 = {
+          title: 'Température et humidité - DHT22',
+          legend: 'bottom',
+          series: {
+            // Gives each series an axis name that matches the Y-axis below.
+            0: {axis: 'temperature'},
+            1: {axis: 'humidite'}
+          },
+          axes: {
+            // Adds labels to each axis; they don't have to match the axis names.
+            y: {
+              temperature: {label: 'Température (°C)'},
+              humidite: {label: 'Humidité (%)'}
+            }
+          }
+        }
+        var options2 = {
+          title: 'Pression Atmosphérique - BMP180',
+          legend: {position: 'none'},
+        }
+        var optionsGauge = {           
+          redFrom: 960, 
+          redTo: 990,
+           
+          yellowFrom: 990, 
+          yellowTo: 1030, 
+           
+          greenFrom: 1030, 
+          greenTo: 1080, 
+           
+          minorTicks: 10,
+           
+          min: 960, 
+          max: 1080, 
+           
+          animation: {
+              duration: 400, 
+              easing: 'out',
+          },
+        };
+        // Objets graphiques - Charts objects
+        var chartTemp = new google.visualization.AreaChart(document.getElementById('chartTemp'));
+        var barTemp = new google.charts.Bar(document.getElementById('barTemp'));
+        var chartPA = new google.visualization.AreaChart(document.getElementById('chartPA'));
+        var gaugePA = new google.visualization.Gauge(document.getElementById('gaugePA'));
+        // Données - Data
+        dataGaugePA = new google.visualization.DataTable();
+        dataChartTemp = new google.visualization.DataTable();
+        dataBarTemp = new google.visualization.DataTable();
+        dataChartPA = new google.visualization.DataTable();
+        
+        // Gauge Pression Atmospherique - Gauge Atmosph. pressure
+        dataGaugePA.addColumn('string', 'Label');
+        dataGaugePA.addColumn('number', 'Value');
+        dataGaugePA.addRows(1);
+        
+        // Line chart temp/humidity
+        dataChartTemp.addColumn('timeofday', 'Temps');
+        dataChartTemp.addColumn('number', 'Température');
+        dataChartTemp.addColumn('number', 'Humidité');
+        
+        // Bar temp/humidity
+        dataBarTemp.addColumn('string', 'Moyennes');
+        dataBarTemp.addColumn('number', 'Température');
+        dataBarTemp.addColumn('number', 'Humidité');
+        
+        // Line Chart PA
+        dataChartPA.addColumn('timeofday', 'Temps');
+        dataChartPA.addColumn('number', 'Pression Atmosphérique');        
+        
+        // Force l'actualisation du graphique au 1er lancement - Force chart update first launch
+        var firstStart = true;
+        updateGraphs();
+        // Actualise à intervalle régulier les graphiques - auto-update charts 
+        setInterval(updateGraphs, 10000); //60000 MS == 1 minutes
+        
+        function updateGraphs(){     
+          // Uniquement si le panneau des graphs est actif - only if chart panel is active
+          if (tab_pane=='#tab_graphs' | firstStart ){
+            firstStart = false;
+            $.getJSON('/graph_temp.json', function(json){
+              //console.log("Mesures envoyees : " + JSON.stringify(data) + "|" + data.t + "|" + data.h + "|" + data.pa) ;
+              var _dataT = [];
+              var _dataPA = [];
+              var _dataBarTemp = [];
+              var _dataBarPA = [];
+              
+              // Data line chart  
+              for ( var i = 0; i < json.timestamp.length; i++ ) {
+                var d = new Date(json.timestamp[i] * 1000);
+                _dataT.push(
+                  [
+                    [d.getHours(), d.getMinutes(), d.getSeconds()],
+                    json.t[i],
+                    json.h[i]
+                  ]
+                )
+                _dataPA.push(
+                  [
+                    [d.getHours(), d.getMinutes(), d.getSeconds()],
+                    json.pa[i]
+                  ]
+                )                
+              }
+              for ( var i = 0; i < json.bart.length; i++ ) {
+                _dataBarTemp.push(
+                  [
+                   i - 7 + "h",
+                   json.bart[i],
+                   json.barh[i]
+                  ]
+                ) 
+              }  
+      
+              dataGaugePA.setValue(0, 0, 'mbar');
+              dataGaugePA.setValue(0, 1, json.pa[0]);
+              dataChartTemp.addRows(_dataT);
+              dataChartPA.addRows(_dataPA);
+              dataBarTemp.addRows(_dataBarTemp);
+              
+              // Efface les anciennes valeurs - Erase old data
+              var nbRec = dataChartTemp.getNumberOfRows() - json.timestamp.length;
+              if ( dataChartTemp.getNumberOfRows() > json.timestamp.length ) {
+                dataChartTemp.removeRows(0, nbRec );
+                dataChartPA.removeRows(0, nbRec );
+              }
+              nbRec = dataBarTemp.getNumberOfRows() - json.bart.length;
+              if ( dataBarTemp.getNumberOfRows() > json.bart.length ) {
+                dataBarTemp.removeRows(0, nbRec );
+              }
+              // Masque ou affiche l'histogramme - hide or sho bar graph
+              if ( dataBarTemp.getNumberOfRows() == 0 ) {
+                $("#zeroDataTemp").show();
+                $("#barTemp").hide();
+              } else {
+                $("#zeroDataTemp").hide();
+                $("#barTemp").show();
+              }
+              // Affiche les graphiques - display charts
+              gaugePA.draw(dataGaugePA,optionsGauge);
+              chartTemp.draw(dataChartTemp, options1);
+              barTemp.draw(dataBarTemp, options1);
+              chartPA.draw(dataChartPA, options2);
+            }).fail(function(err){
+              console.log("err getJSON graph_temp.json "+JSON.stringify(err));
+            });
+          }
+        }    
+      }
+      
+              
+      $('a[data-toggle=\"tab\"]').on('shown.bs.tab', function (e) {   
+        //On supprime tous les timers lorsqu'on change d'onglet
+        clearTimeout(Timer_UdpateMesures);  
+        tab_pane = $(e.target).attr("href")  
+        console.log('activated ' + tab_pane );  
+      
+        // IE10, Firefox, Chrome, etc.
+        if (history.pushState) 
+          window.history.pushState(null, null, tab_pane);
+        else 
+          window.location.hash = tab_pane;
+        
+        if (tab_pane=='#tab_mesures')  {
+          $('#table_mesures').bootstrapTable('refresh',{silent:true, url:'/tabmesures.json'}); 
+        }  
+      });
+      
+      // Créé un timer qui actualise les données régulièrement - Create a timer than update data every n secondes
+      $('#tab_mesures').on('load-success.bs.table',function (e,data){
+        console.log("tab_mesures loaded");
+        if ($('.nav-tabs .active > a').attr('href')=='#tab_mesures') {
+          Timer_UdpateMesures=setTimeout(function(){
+            $('#table_mesures').bootstrapTable('refresh',{silent: true, showLoading: false, url: '/tabmesures.json'});
+            updateMesures();
+          },10000);
+        }                 
+      });   
+          
+      function updateMesures(){
+        $.getJSON('/mesures.json', function(data){
+          //console.log("Mesures envoyees : " + JSON.stringify(data) + "|" + data.t + "|" + data.h + "|" + data.pa) ;
+          $('#temperature').html(data.t);
+          $('#humidite').html(data.h);
+          $('#pa').html(data.pa); 
+        }).fail(function(err){
+          console.log("err getJSON mesures.json "+JSON.stringify(err));
+        });
+      };
+      
+      function labelFormatter(value, row){
+        //console.log("labelFormatter");
+        //console.log(value);
+        //console.log(row);
+        var label = "";
+        if ( value === "Température" ) {
+          label = value + "<span class='glyphicon " + row.glyph + " pull-left'></span>";
+          $("#labelTemp").html("&nbsp;" + value + "&nbsp;" + "<span class='badge'> " + row.valeur + row.unite + "</span><span class='glyphicon " + row.glyph + " pull-left'></span>");
+        } else if ( value === "Humidité" ) {
+          label = value + "<span class='glyphicon " + row.glyph + " pull-left'></span>";
+          $("#labelHumi").html("&nbsp;" + value + "&nbsp;" + "<span class='badge'> " + row.valeur + row.unite + "</span><span class='glyphicon " + row.glyph + " pull-left'></span>");
+        } else if ( value === "Pression Atmosphérique" ) {
+          label = value + "<span class='glyphicon " + row.glyph + " pull-left'></span>";
+          $("#labelPa").html("&nbsp;" + value + "&nbsp;" + "<span class='badge'> " + row.valeur + row.unite + "</span><span class='glyphicon " + row.glyph + " pull-left'></span>");
+        } else {
+          label = value;
+        } 
+        return label;
+      }
+      function valueFormatter(value, row){
+        //console.log("valueFormatter");
+        var label = "";
+        if ( row.valeur > row.precedente ) {
+          label = value + row.unite + "<span class='glyphicon glyphicon-chevron-up pull-right'></span>";
+        } else { 
+          label = value + row.unite + "<span class='glyphicon glyphicon-chevron-down pull-right'></span>";
+        }
+        return label;
+      }
+      function vpFormatter(value, row){
+        //console.log("valueFormatter");
+        var label = "";
+        if ( row.valeur > row.precedente ) {
+          label = value + row.unite
+        } else { 
+          label = value + row.unite
+        }
+        return label;
+      }  
+      
+      // Commandes sur le GPIO - GPIO change
+      $('#D5_On').click(function(){ setBouton('D5','1'); });
+      $('#D5_Off').click(function(){ setBouton('D5','0'); });
+      $('#D6_On').click(function(){ setBouton('D6','1'); });
+      $('#D6_Off').click(function(){ setBouton('D6','0'); });
+      $('#D7_On').click(function(){ setBouton('D7','1'); });
+      $('#D7_Off').click(function(){ setBouton('D7','0'); });
+      $('#D8_On').click(function(){ setBouton('D8','1'); });
+      $('#D8_Off').click(function(){ setBouton('D8','0'); });
+      
+      function setBouton(id, etat){
+        $.post("gpio?id=" + id + "&etat=" + etat).done(function(data){
+          //console.log("Retour setBouton " + JSON.stringify(data)); 
+          var id_gpio = "#" + id + "_etat";
+          //console.log(data);
+          if ( data.success === "1" | data.success === 1 ) {
+            if ( data.etat === "1" ) {
+              $(id_gpio).html("ON");
+            } else {
+              $(id_gpio).html("OFF");
+            }  
+          } else {
+            $(id_gpio).html('!');
+          }      
+        }).fail(function(err){
+          console.log("err setButton " + JSON.stringify(err));
+        });
+      } 
+      
+      // Changement du theme - Change current theme
+      // Adapté de - Adapted from : https://wdtz.org/bootswatch-theme-selector.html
+      var supports_storage = supports_html5_storage();
+      if (supports_storage) {
+        var theme = localStorage.theme;
+        console.log("Recharge le theme " + theme);
+        if (theme) {
+          set_theme(get_themeUrl(theme));
+        }
+      }
+      
+      // Nouveau theme sélectionne - New theme selected
+      jQuery(function($){
+        $('body').on('click', '.change-style-menu-item', function() {
+          var theme_name = $(this).attr('rel');
+          console.log("Change theme " + theme_name);
+          var theme_url = get_themeUrl(theme_name);
+          console.log("URL theme : " + theme_url);
+          set_theme(theme_url);
+        });
+      });
+      // Recupere l'adresse du theme - Get theme URL
+      function get_themeUrl(theme_name){
+        $('#labelTheme').html("Th&egrave;me : " + theme_name);
+        var url_theme = "";
+        if ( theme_name === "bootstrap" ) {
+          url_theme = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+        } else {
+          url_theme = "https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/" + theme_name + "/bootstrap.min.css";
+        }
+        if (supports_storage) {
+          // Enregistre le theme sélectionné en local - save into the local database the selected theme
+          localStorage.theme = theme_name;
+        }
+        return url_theme;
+      }
+      // Applique le thème - Apply theme
+      function set_theme(theme_url) {
+        $('link[title="main"]').attr('href', theme_url);
+      }
+      // Stockage local disponible ? - local storage available ?
+      function supports_html5_storage(){
+        try {
+          return 'localStorage' in window && window['localStorage'] !== null;
+        } catch (e) {
+          return false;
+        }
+      }
+    </script>
+  </body>
+</html>
