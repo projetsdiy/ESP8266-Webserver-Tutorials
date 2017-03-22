@@ -1,5 +1,5 @@
 # ESP8266 Webserver Tutorials
-A series of tutorials to program the ESP8266 as a web server
+A series of tutorials to use the ESP8266 as a web server
 * Part 1 : Store HTML, CSS and IMG files on system file SPIFFS  
 http://www.diyprojects.io/esp8266-web-server-part-1-store-web-interface-spiffs-area-html-css-js/)
 * Part 2 : Interaction between Arduino code and HTML interface  
